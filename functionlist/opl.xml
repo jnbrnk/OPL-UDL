@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <NotepadPlus>
+    <functionList>
+        <!-- ====================================================== [ Axe ] -->
+            <parser 
+                displayName="OPL"
+                id="opl_function"
+                commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+                    # single line comment defined here: ./ followed by anything
+                    (?xm-s)                                                     # ^$ matches inside multiline match; . doesn't match newline
+                    \s+                                                         # must be a space or newline before the ./
+                    \.                                                          # literal .
+                    /                                                           # literal /
+                    .*                                                          # 0 or more after ./
+                    $                                                           # until EOL
+                |                   # OR
+                    # multi line comment defined here: .../ followed by anything, ending with ...
+                    (?xms)                                                      # inline comments, ^$ matches any line, . matches newline
+                    \s+
+                    \.{3}
+                    /
+                    .*?
+                    ^
+                    \s*
+                    \.{3}
+                "
+            >
+                <function mainExpr="(?x-s) PROC \h+ .*">
+                    <functionName>
+                        <nameExpr expr="(?x-s) PROC \h+ .*"/>
+                    </functionName>
+                </function>
+            </parser>
+    </functionList>
+</NotepadPlus>
